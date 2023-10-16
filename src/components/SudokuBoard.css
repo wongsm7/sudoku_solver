@@ -1,0 +1,19 @@
+.sudoku-container {
+    height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.buttons {
+    position: absolute;
+    top: 400px;
+    left: 1500px;
+    display: flex;
+    flex-direction: column;
+}
+
+button {
+    padding: 20px;
+    margin-bottom: 20px;
+}
