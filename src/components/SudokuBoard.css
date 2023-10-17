@@ -6,11 +6,23 @@
 }
 
 .buttons {
-    position: absolute;
-    top: 400px;
-    left: 1500px;
     display: flex;
     flex-direction: column;
+}
+.status {
+    border: 1px solid white;
+    width: 256px;
+    height: 128px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.right-panel {
+    position: absolute;
+    top: 200px;
+    left: 1400px;
 }
 
 button {

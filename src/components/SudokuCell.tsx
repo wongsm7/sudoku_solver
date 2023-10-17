@@ -11,19 +11,16 @@ type Props = {
 }
 
 const SudokuCell = (props: Props) => {
-    let [value, setValue] = useState(props.value)
+    let { value, rowIndex, colIndex, setBoard, board} = props
     let onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const re: RegExp = /^[1-9\b]+$/
         if (re.test(e.target.value) || e.target.value === '') {
-            setValue(e.target.value)
-            let tempBoard: Array<Array<string>> = [...props.board]
-            tempBoard[props.rowIndex][props.colIndex] = e.target.value
+            let tempBoard: Array<Array<string>> = [...board]
+            tempBoard[rowIndex][colIndex] = e.target.value
+            setBoard(tempBoard)
         }
     }
 
-    useEffect(() => {
-        setValue(props.value)
-    }, [props.value])
     
 
     return (

@@ -1,4 +1,4 @@
-const CheckSudoku = (board: Array<Array<String>>): boolean => {
+const isValidSudoku = (board: Array<Array<String>>): boolean => {
     for (let i = 0; i < 9; i++) {
         let rowSet = new Set()
         let columnSet = new Set()
@@ -12,13 +12,34 @@ const CheckSudoku = (board: Array<Array<String>>): boolean => {
                 return false
             }
 
-            rowCell !== '.' && rowSet.add(rowCell)
-            columnCell !== '.' && columnSet.add(columnCell)
-            boxCell !== '.' && boxSet.add(boxCell)
+            rowCell !== '' && rowSet.add(rowCell)
+            columnCell !== '' && columnSet.add(columnCell)
+            boxCell !== '' && boxSet.add(boxCell)
         }
     }
 
     return true
+}
+
+const isCompletedSudoku = (board: Array<Array<String>>): boolean => {
+    for (let i = 0; i < 9; i++) {
+        for (let j = 0; j < 9; j++) {
+            if (board[i][j] == '') {
+                return false
+            }
+        }
+    }
+    return true
+}
+
+const CheckSudoku = (board: Array<Array<String>>): String => {
+    if (isCompletedSudoku(board) && isValidSudoku(board)) {
+        return "Completed successfully"
+    } else if (!isValidSudoku(board)) {
+        return "Invalid sudoku"
+    } else if (!isCompletedSudoku(board)) {
+        return "Incomplete sudoku"
+    }
 }
 
 export default CheckSudoku
