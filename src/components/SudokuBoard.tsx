@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import './SudokuBoard.css'
 import SudokuCell from './SudokuCell'
-import SolveSudoku from '../utils/SolveSudoku'
-import CheckSudoku from '../utils/CheckSudoku'
+import { isValidSudoku, solveSudoku, checkSudoku } from '../utils/SudokuUtils'
+import Action from '../models/Action'
 
 type Props = {}
 
@@ -10,26 +10,45 @@ const SudokuBoard = (props: Props) => {
     // let emptyBoard = Array.from({length: 9}, e => Array(9).fill(''));
     let emptyBoard = [...Array(9)].map(e => Array(9).fill(''))
     let [board, setBoard] = useState(emptyBoard)
-    let [status, setStatus] = useState(CheckSudoku(board))
-
-    let [isValidBoard, setIsValidBoard] = useState(false)
+    let [status, setStatus] = useState(checkSudoku(board))
+    let [actionStack, setActionstack] = useState([])
 
     let checkBoard = () => {
-        setStatus(CheckSudoku(board))
+        setStatus(checkSudoku(board))
     }
 
     useEffect(() => {
         checkBoard()
     }, [board])
 
+    useEffect(() => {
+        console.log(actionStack)
+    }, [actionStack])
+
     let solveBoard = () => {
+        if (!isValidSudoku) {
+            return
+        }
         let tempBoard = [...board]
-        SolveSudoku(tempBoard, 0, 0)
+        solveSudoku(tempBoard, 0, 0)
         setBoard(tempBoard)
     }
 
     let resetBoard = () => {
       setBoard(emptyBoard)
+      setActionstack([])
+    }
+
+    let undoAction = () => {
+        if (actionStack.length == 0) {
+            return
+        }
+        let tempBoard = [...board]
+        let tempStack = [...actionStack]
+        let {x, y, value}: any = tempStack.pop()
+        tempBoard[x][y] = value
+        setBoard(tempBoard)
+        setActionstack(tempStack)
     }
 
     return (
@@ -49,6 +68,8 @@ const SudokuBoard = (props: Props) => {
                                                     colIndex={colIndex} 
                                                     setBoard={setBoard}
                                                     board={board}
+                                                    setActionstack={setActionstack}
+                                                    actionStack={actionStack}
                                                 />
                                             )
                                         })
@@ -69,6 +90,9 @@ const SudokuBoard = (props: Props) => {
                     </button>
                     <button onClick={resetBoard}>
                         Reset sudoku
+                    </button>
+                    <button onClick={undoAction}>
+                        Undo Action
                     </button>
                 </div>
             </div>
