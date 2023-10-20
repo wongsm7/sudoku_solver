@@ -1,12 +1,11 @@
-import Header from './components/Header'
 import SudokuBoard from './components/SudokuBoard'
+import './App.css'
 
 function App() {
   return (
-    <div>
-      <Header/>
+    <>
       <SudokuBoard />
-    </div>
+    </>
   )
 }
 

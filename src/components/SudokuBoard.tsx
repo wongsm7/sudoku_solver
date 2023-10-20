@@ -3,6 +3,7 @@ import './SudokuBoard.css'
 import SudokuCell from './SudokuCell'
 import { isValidSudoku, solveSudoku, checkSudoku } from '../utils/SudokuUtils'
 import Action from '../models/Action'
+import Header from './Header'
 
 type Props = {}
 
@@ -29,14 +30,21 @@ const SudokuBoard = (props: Props) => {
         if (!isValidSudoku) {
             return
         }
+        let tempStack: any = [...actionStack]
+        tempStack.push({
+            x: -1,
+            y: -1,
+            value: ''
+        })
         let tempBoard = [...board]
         solveSudoku(tempBoard, 0, 0)
         setBoard(tempBoard)
+        setActionstack(tempStack)
     }
 
     let resetBoard = () => {
-      setBoard(emptyBoard)
-      setActionstack([])
+        setBoard(emptyBoard)
+        setActionstack([])
     }
 
     let undoAction = () => {
@@ -45,44 +53,48 @@ const SudokuBoard = (props: Props) => {
         }
         let tempBoard = [...board]
         let tempStack = [...actionStack]
-        let {x, y, value}: any = tempStack.pop()
+        let { x, y, value }: any = tempStack.pop()
+        setActionstack(tempStack)
+        if ( x == -1 && y == -1) {
+            setBoard(emptyBoard)
+            return
+        }
         tempBoard[x][y] = value
         setBoard(tempBoard)
-        setActionstack(tempStack)
+
     }
 
     return (
-        <>
+        <div className='app-container'>
+            <div className='left-panel'></div>
             <div className='sudoku-container'>
-                {
-                    board.map((row, rowIndex) => {
-                        return (
-                            <>
-                                <div>
-                                    {
-                                        row.map((cell, colIndex) => {
-                                            return (
-                                                <SudokuCell 
-                                                    value={cell} 
-                                                    rowIndex={rowIndex} 
-                                                    colIndex={colIndex} 
-                                                    setBoard={setBoard}
-                                                    board={board}
-                                                    setActionstack={setActionstack}
-                                                    actionStack={actionStack}
-                                                />
-                                            )
-                                        })
-                                    }
-                                </div>
-                            </>
-                        )
-                    })
-                }
-            </div>
-            <div className='right-panel'>
-                <div className='status'>
-                    {status}
+                <Header />
+                <div className='sudoku-board'>
+                    {
+                        board.map((row, rowIndex) => {
+                            return (
+                                <>
+                                    <div>
+                                        {
+                                            row.map((cell, colIndex) => {
+                                                return (
+                                                    <SudokuCell
+                                                        value={cell}
+                                                        rowIndex={rowIndex}
+                                                        colIndex={colIndex}
+                                                        setBoard={setBoard}
+                                                        board={board}
+                                                        setActionstack={setActionstack}
+                                                        actionStack={actionStack}
+                                                    />
+                                                )
+                                            })
+                                        }
+                                    </div>
+                                </>
+                            )
+                        })
+                    }
                 </div>
                 <div className='buttons'>
                     <button onClick={solveBoard}>
@@ -96,7 +108,12 @@ const SudokuBoard = (props: Props) => {
                     </button>
                 </div>
             </div>
-        </>
+            <div className='right-panel'>
+                <div className='status'>
+                    {status}
+                </div>
+            </div>
+        </div>
     )
 }
 
