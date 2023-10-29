@@ -8,11 +8,10 @@ import Header from './Header'
 type Props = {}
 
 const SudokuBoard = (props: Props) => {
-    // let emptyBoard = Array.from({length: 9}, e => Array(9).fill(''));
     let emptyBoard = [...Array(9)].map(e => Array(9).fill(''))
     let [board, setBoard] = useState(emptyBoard)
     let [status, setStatus] = useState(checkSudoku(board))
-    let [actionStack, setActionstack] = useState([])
+    let [actionStack, setActionstack] = useState<Array<Action>>([])
 
     let checkBoard = () => {
         setStatus(checkSudoku(board))
@@ -27,10 +26,10 @@ const SudokuBoard = (props: Props) => {
     }, [actionStack])
 
     let solveBoard = () => {
-        if (!isValidSudoku) {
+        if (!isValidSudoku(board)) {
             return
         }
-        let tempStack: any = [...actionStack]
+        let tempStack: Array<Action> = [...actionStack]
         tempStack.push({
             x: -1,
             y: -1,
