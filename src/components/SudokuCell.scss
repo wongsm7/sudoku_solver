@@ -1,0 +1,63 @@
+.cell {
+    border: 1px solid;
+    box-sizing:border-box;
+    text-align: center;
+}
+
+@media (min-width: 280px) {
+    .cell {
+        width: 31px;
+        height: 31px;
+        font-size: 20px;
+    }
+}
+
+@media (min-width: 375px) {
+    .cell {
+        width: 36px;
+        height: 36px;
+        font-size: 20px;
+    }
+}
+
+@media (min-width: 414px) {
+    .cell {
+        width: 40px;
+        height: 40px;
+        font-size: 20px;
+    }
+}
+
+@media (min-width: 576px) {
+    .cell {
+        width: 56px;
+        height: 56px;
+        font-size: 20px;
+    }
+}
+
+// Medium devices (tablets, 768px and up)
+@media (min-width: 768px) {  
+    .cell {
+        width: 64px;
+        height: 64px;
+        font-size: 20px;
+    }
+}
+
+// Large devices (desktops, 992px and up)
+@media (min-width: 992px) {  
+    .cell {
+        width: 68px;
+        height: 68px;
+        font-size: 20px;
+    }
+}
+
+.cell:hover {
+    background: rgb(112, 104, 104);
+}
+
+.cell-input:hover {
+    background: rgb(112, 104, 104);
+}

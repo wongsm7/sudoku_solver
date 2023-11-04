@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import './SudokuBoard.css'
+import './SudokuBoard.scss'
 import SudokuCell from './SudokuCell'
 import { isValidSudoku, solveSudoku, checkSudoku } from '../utils/SudokuUtils'
 import Action from '../models/Action'
@@ -65,15 +65,14 @@ const SudokuBoard = (props: Props) => {
 
     return (
         <div className='app-container'>
-            <div className='left-panel'></div>
+            {/* <div className='left-panel'></div> */}
             <div className='sudoku-container'>
                 <Header />
                 <div className='sudoku-board'>
                     {
                         board.map((row, rowIndex) => {
                             return (
-                                <>
-                                    <div>
+                                    <>
                                         {
                                             row.map((cell, colIndex) => {
                                                 return (
@@ -89,12 +88,14 @@ const SudokuBoard = (props: Props) => {
                                                 )
                                             })
                                         }
-                                    </div>
-                                </>
+                                    </>
                             )
                         })
                     }
                 </div>
+                {/* <div className='status'>
+                    {status}
+                </div> */}
                 <div className='buttons'>
                     <button onClick={solveBoard}>
                         Solve sudoku
@@ -105,11 +106,6 @@ const SudokuBoard = (props: Props) => {
                     <button onClick={undoAction}>
                         Undo Action
                     </button>
-                </div>
-            </div>
-            <div className='right-panel'>
-                <div className='status'>
-                    {status}
                 </div>
             </div>
         </div>

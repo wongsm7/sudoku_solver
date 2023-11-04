@@ -14,38 +14,24 @@
 }
 
 .sudoku-board {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    display: grid;
+    grid-template-columns: repeat(9, 1fr);
+    margin: 1px;
 }
 
 .buttons {
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
 }
 .status {
+    margin-top: 20px;
     border: 1px solid white;
-    width: 256px;
-    height: 128px;
-    margin-bottom: 20px;
+    padding: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
-}
-
-.left-panel {
-    display: flex;
-    flex: 1;
-}
-
-.right-panel {
-    display: flex;
-    flex: 1;
-    margin-top: 200px;
-    margin-left: 50px;
-    position: relative;
 }
 
 button {

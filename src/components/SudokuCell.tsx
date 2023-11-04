@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import './SudokuCell.css'
+import './SudokuCell.scss'
 import SudokuBoard from './SudokuBoard'
 import Action from '../models/Action'
 
@@ -34,14 +34,12 @@ const SudokuCell = (props: Props) => {
     
 
     return (
-        <>
             <input 
                 maxLength={1}
-                className='cell'
                 onChange={onChange}
                 value={value}
+                className='cell'
             />
-        </>
     )
 }
 

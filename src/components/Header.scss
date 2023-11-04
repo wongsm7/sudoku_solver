@@ -1,0 +1,28 @@
+.header {
+    justify-content: center;
+    text-align: center;
+}
+
+@media (min-width: 280px) {
+    .header {
+        font-size: 32px;
+    }
+}
+
+@media (min-width: 375px) {
+    .header {
+        font-size: 36px;
+    }
+}
+
+@media (min-width: 414px) {
+    .header {
+        font-size: 40px;
+    }
+}
+
+@media (min-width: 576px) {
+    .header {
+        font-size: 40px;
+    }
+}
