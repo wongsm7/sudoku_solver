@@ -39,6 +39,8 @@ const checkSudoku = (board: Array<Array<String>>): String => {
         return "Invalid sudoku"
     } else if (!isCompletedSudoku(board)) {
         return "Incomplete sudoku"
+    } else {
+        return 'Error occured'
     }
 }
 
