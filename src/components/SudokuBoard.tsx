@@ -1,25 +1,14 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import './SudokuBoard.scss'
 import SudokuCell from './SudokuCell'
-import { isValidSudoku, solveSudoku, checkSudoku } from '../utils/SudokuUtils'
+import { isValidSudoku, solveSudoku } from '../utils/SudokuUtils'
 import Action from '../models/Action'
 import Header from './Header'
 
-type Props = {}
-
-const SudokuBoard = (props: Props) => {
-    let emptyBoard = [...Array(9)].map(e => Array(9).fill(''))
+const SudokuBoard = () => {
+    let emptyBoard = [...Array(9)].map(() => Array(9).fill(''))
     let [board, setBoard] = useState(emptyBoard)
-    let [status, setStatus] = useState(checkSudoku(board))
     let [actionStack, setActionstack] = useState<Array<Action>>([])
-
-    let checkBoard = () => {
-        setStatus(checkSudoku(board))
-    }
-
-    useEffect(() => {
-        checkBoard()
-    }, [board])
 
     useEffect(() => {
         console.log(actionStack)

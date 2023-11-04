@@ -1,6 +1,4 @@
-import { useEffect, useState } from 'react'
 import './SudokuCell.scss'
-import SudokuBoard from './SudokuBoard'
 import Action from '../models/Action'
 
 type Props = {
