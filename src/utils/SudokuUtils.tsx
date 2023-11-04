@@ -1,3 +1,7 @@
+import { completedBoard } from "../data/CompletedBoard"
+import { randomNumber, sample } from "./RandomUtils"
+import { swapColumn, swapRow, swapNumber } from "./SwapUtils"
+
 const isValidSudoku = (board: Array<Array<String>>): boolean => {
     for (let i = 0; i < 9; i++) {
         let rowSet = new Set()
@@ -106,4 +110,38 @@ let isValid = (board: Array<Array<String>>, x: number, y: number, num: number) =
     return true
 }
 
-export { checkSudoku, isValidSudoku, solveSudoku }
+let clueMapper: any =  {
+    1: 41,
+    2: 33,
+    3: 28,
+    4: 18,
+}
+
+let generateSudoku = (difficulty: number) => {
+    let board = [...completedBoard].map(row => [...row])
+    //solveSudoku(board, 0, 0)
+    // swap columns
+    for (let i = 0; i < 9; i += 3) {
+        swapColumn(board, randomNumber(i, i + 2), randomNumber(i, i + 2))
+    }
+
+    // swap rows
+    for (let i = 0; i < 9; i += 3) {
+        swapRow(board, randomNumber(i, i + 2), randomNumber(i, i + 2))
+    }
+
+    // swap numbers
+    for (let i = 0; i < 9; i++) {
+        swapNumber(board, randomNumber(1, 9), randomNumber(1,9))
+    }
+
+    // remove numbers
+    
+    let cells = sample([...Array(81).keys()], 81 - clueMapper[difficulty])
+    cells.forEach(cell => {
+        board[Math.floor(cell / 9)][cell % 9] = ''
+    })
+    return board
+}
+
+export { checkSudoku, isValidSudoku, solveSudoku, generateSudoku }
