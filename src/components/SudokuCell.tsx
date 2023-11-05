@@ -1,6 +1,7 @@
 import './SudokuCell.scss'
 import Action from '../models/Action'
 import { useEffect } from 'react'
+import { cellBorderClassNameMapping } from '../utils/CellBorderUtils'
 
 type Props = {
     value: string,
@@ -18,21 +19,30 @@ type Props = {
 
 
 const SudokuCell = (props: Props) => {
-    let { value, rowIndex, colIndex, setBoard, board, setActionstack, actionStack, selectedNumber, setSelectedNumber} = props
+    let { value, rowIndex, colIndex, setBoard, board, setActionstack, actionStack, selectedNumber, setSelectedNumber } = props
+
+    let isSelected = selectedNumber != '' && selectedNumber == value
+
+    let cellBorderClass = (): string => {
+        let s = ''
+        s += cellBorderClassNameMapping.row[rowIndex] + ' '
+        s += cellBorderClassNameMapping.col[colIndex] + ' '
+        return s
+    }
 
     useEffect(() => {
         const handleEsc = (event: any) => {
-           if (event.key === 'Escape') {
-            setSelectedNumber('')
-            event.target.blur();
-          }
+            if (event.key === 'Escape') {
+                setSelectedNumber('')
+                event.target.blur();
+            }
         };
         window.addEventListener('keydown', handleEsc);
-    
+
         return () => {
-          window.removeEventListener('keydown', handleEsc);
+            window.removeEventListener('keydown', handleEsc);
         };
-      }, []);
+    }, []);
 
     let onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const re: RegExp = /^[1-9\b]+$/
@@ -41,8 +51,8 @@ const SudokuCell = (props: Props) => {
             let tempBoard: Array<Array<string>> = [...board]
             let tempStack = [...actionStack]
             tempStack.push({
-                x: rowIndex, 
-                y: colIndex, 
+                x: rowIndex,
+                y: colIndex,
                 value: board[rowIndex][colIndex]
             })
             setActionstack(tempStack)
@@ -56,16 +66,15 @@ const SudokuCell = (props: Props) => {
         setSelectedNumber(value)
     }
 
-    let isSelected = selectedNumber != '' && selectedNumber == value
 
     return (
-            <input 
-                maxLength={1}
-                onChange={onChange}
-                value={value}
-                className={`cell ${(isSelected && 'cell-selected')}`}
-                onClick={onClick}
-            />
+        <input
+            maxLength={1}
+            onChange={onChange}
+            value={value}
+            className={`cell ${(isSelected && 'cell-selected')} ${cellBorderClass()}`}
+            onClick={onClick}
+        />
     )
 }
 

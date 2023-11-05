@@ -1,5 +1,5 @@
 .cell {
-    border: 1px solid;
+    border: 1px dotted;
     box-sizing:border-box;
     text-align: center;
     caret-color: transparent;
@@ -13,6 +13,22 @@
     outline: none !important;
     border:1px solid red;
     box-shadow: 0 0 10px #ce7179;
+}
+
+.cell-border-left {
+    border-left: 3px solid white;
+}
+
+.cell-border-right {
+    border-right: 3px solid white;
+}
+
+.cell-border-top {
+    border-top: 3px solid white;
+}
+
+.cell-border-bottom {
+    border-bottom: 3px solid white;
 }
 
 @media (min-width: 280px) {
