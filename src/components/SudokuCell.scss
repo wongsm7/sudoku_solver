@@ -2,6 +2,17 @@
     border: 1px solid;
     box-sizing:border-box;
     text-align: center;
+    caret-color: transparent;
+}
+
+.cell-selected {
+    background: rgb(112, 104, 104);
+}
+
+.cell:focus {
+    outline: none !important;
+    border:1px solid red;
+    box-shadow: 0 0 10px #ce7179;
 }
 
 @media (min-width: 280px) {

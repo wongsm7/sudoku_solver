@@ -11,10 +11,7 @@ const SudokuBoard = () => {
     let [board, setBoard] = useState(emptyBoard)
     let [actionStack, setActionstack] = useState<Array<Action>>([])
     let [difficulty, setDifficulty] = useState(DIFFICULTY.EASY)
-
-    useEffect(() => {
-        console.log(actionStack)
-    }, [actionStack])
+    let [selectedNumber, setSelectedNumber] = useState('')
 
     let solveBoard = () => {
         if (!isValidSudoku(board)) {
@@ -96,6 +93,8 @@ const SudokuBoard = () => {
                                                         board={board}
                                                         setActionstack={setActionstack}
                                                         actionStack={actionStack}
+                                                        selectedNumber={selectedNumber}
+                                                        setSelectedNumber={setSelectedNumber}
                                                     />
                                                 )
                                             })
