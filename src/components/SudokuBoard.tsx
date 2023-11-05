@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import './SudokuBoard.scss'
 import SudokuCell from './SudokuCell'
 import { generateSudoku, isValidSudoku, solveSudoku } from '../utils/SudokuUtils'
