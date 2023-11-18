@@ -24,7 +24,6 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: space-between;
 }
 .status {
     margin-top: 20px;
@@ -37,5 +36,26 @@
 
 button {
     padding: 20px;
+}
+
+.reset-button, .undo-button, .generate-button  {
     margin-left: 20px;
+}
+
+@media (min-width: 280px) {
+    button {
+        padding: 0px;
+    }
+}
+
+@media (min-width: 375px) {
+    button {
+        padding: 10px;
+    }
+}
+
+@media (min-width: 414px) {
+    button {
+        padding: 15px;
+    }
 }

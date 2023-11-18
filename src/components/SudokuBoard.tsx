@@ -108,16 +108,16 @@ const SudokuBoard = () => {
                     {status}
                 </div> */}
                 <div className='buttons'>
-                    <button onClick={solveBoard}>
+                    <button className='solve-button' onClick={solveBoard}>
                         Solve sudoku
                     </button>
-                    <button onClick={resetBoard}>
+                    <button className='reset-button' onClick={resetBoard}>
                         Reset sudoku
                     </button>
-                    <button onClick={undoAction}>
+                    <button className='undo-button' onClick={undoAction}>
                         Undo Action
                     </button>
-                    <button onClick={generateBoard}>
+                    <button className='generate-button' onClick={generateBoard}>
                         Generate sudoku
                     </button>
                 </div>
