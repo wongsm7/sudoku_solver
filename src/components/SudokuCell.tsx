@@ -55,7 +55,6 @@ const SudokuCell = (props: Props) => {
         setSelectedNumber(value)
         setSelectedCellCol(colIndex)
         setSelectedCellRow(rowIndex)
-        console.log(selectedCellCol, selectedCellRow)
     }
 
 

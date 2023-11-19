@@ -72,9 +72,7 @@ const SudokuBoard = () => {
     useEffect(() => {
         const handleKeyPress = (event: any) => {
             let key = event.key
-            console.log(key)
             if (key === 'Escape') {
-                console.log("escape")
                 setSelectedNumber('')
                 setSelectedCellCol(-1)
                 setSelectedCellRow(-1)
