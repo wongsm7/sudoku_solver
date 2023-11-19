@@ -65,6 +65,7 @@ const SudokuCell = (props: Props) => {
             value={value}
             className={`cell ${(isNumberSelected && 'number-selected')} ${isCellSelected && 'cell-selected'} ${cellBorderClass()}`}
             onClick={onClick}
+            inputMode='none'
         />
     )
 }
