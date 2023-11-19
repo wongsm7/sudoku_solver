@@ -1,6 +1,5 @@
 import './SudokuCell.scss'
 import Action from '../models/Action'
-import { useEffect } from 'react'
 import { cellBorderClassNameMapping } from '../utils/CellBorderUtils'
 
 type Props = {
@@ -8,20 +7,24 @@ type Props = {
     rowIndex: number,
     colIndex: number,
     setBoard: Function,
-    board: Array<Array<string>>,
+    board: Array<Array<string | number>>,
     setActionstack: Function,
     actionStack: Array<Action>,
     selectedNumber: string,
-    setSelectedNumber: Function
+    setSelectedNumber: Function,
+    selectedCellCol: number,
+    setSelectedCellCol: Function,
+    selectedCellRow: number,
+    setSelectedCellRow: Function,
 }
 
-
-
-
 const SudokuCell = (props: Props) => {
-    let { value, rowIndex, colIndex, setBoard, board, setActionstack, actionStack, selectedNumber, setSelectedNumber } = props
+    let { value, rowIndex, colIndex, setBoard, board, setActionstack, actionStack, selectedNumber, setSelectedNumber,
+        selectedCellCol, setSelectedCellCol, selectedCellRow, setSelectedCellRow } = props
 
-    let isSelected = selectedNumber != '' && selectedNumber == value
+    let isNumberSelected: boolean = selectedNumber != '' && selectedNumber == value
+
+    let isCellSelected: boolean = rowIndex == selectedCellRow && colIndex == selectedCellCol
 
     let cellBorderClass = (): string => {
         let s = ''
@@ -30,25 +33,11 @@ const SudokuCell = (props: Props) => {
         return s
     }
 
-    useEffect(() => {
-        const handleEsc = (event: any) => {
-            if (event.key === 'Escape') {
-                setSelectedNumber('')
-                event.target.blur();
-            }
-        };
-        window.addEventListener('keydown', handleEsc);
-
-        return () => {
-            window.removeEventListener('keydown', handleEsc);
-        };
-    }, []);
-
     let onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const re: RegExp = /^[1-9\b]+$/
         let newValue = e.target.value
         if (re.test(newValue) || newValue === '') {
-            let tempBoard: Array<Array<string>> = [...board]
+            let tempBoard: Array<Array<string | number>> = [...board]
             let tempStack = [...actionStack]
             tempStack.push({
                 x: rowIndex,
@@ -64,6 +53,9 @@ const SudokuCell = (props: Props) => {
 
     let onClick = () => {
         setSelectedNumber(value)
+        setSelectedCellCol(colIndex)
+        setSelectedCellRow(rowIndex)
+        console.log(selectedCellCol, selectedCellRow)
     }
 
 
@@ -72,7 +64,7 @@ const SudokuCell = (props: Props) => {
             maxLength={1}
             onChange={onChange}
             value={value}
-            className={`cell ${(isSelected && 'cell-selected')} ${cellBorderClass()}`}
+            className={`cell ${(isNumberSelected && 'number-selected')} ${isCellSelected && 'cell-selected'} ${cellBorderClass()}`}
             onClick={onClick}
         />
     )

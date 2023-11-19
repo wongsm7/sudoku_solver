@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './SudokuBoard.scss'
 import SudokuCell from './SudokuCell'
 import { generateSudoku, isValidSudoku, solveSudoku } from '../utils/SudokuUtils'
@@ -12,6 +12,8 @@ const SudokuBoard = () => {
     let [actionStack, setActionstack] = useState<Array<Action>>([])
     let [difficulty, setDifficulty] = useState(DIFFICULTY.EASY)
     let [selectedNumber, setSelectedNumber] = useState('')
+    let [selectedCellRow, setSelectedCellRow] = useState(-1)
+    let [selectedCellCol, setSelectedCellCol] = useState(-1)
 
     let solveBoard = () => {
         if (!isValidSudoku(board)) {
@@ -42,7 +44,7 @@ const SudokuBoard = () => {
         let tempStack = [...actionStack]
         let { x, y, value }: any = tempStack.pop()
         setActionstack(tempStack)
-        if ( x == -1 && y == -1) {
+        if (x == -1 && y == -1) {
             setBoard(emptyBoard)
             return
         }
@@ -59,6 +61,38 @@ const SudokuBoard = () => {
         setDifficulty(e.target.value)
     }
 
+    let fillCellWithNumber = (num: number) => {
+        let tempBoard = [...board]
+        tempBoard[selectedCellRow][selectedCellCol] = num
+        setBoard(tempBoard)
+    }
+
+    let numberArray: Array<number> = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+    useEffect(() => {
+        const handleKeyPress = (event: any) => {
+            let key = event.key
+            console.log(key)
+            if (key === 'Escape') {
+                console.log("escape")
+                setSelectedNumber('')
+                setSelectedCellCol(-1)
+                setSelectedCellRow(-1)
+            }
+
+            if (/^[1-9]$/i.test(key)) {
+                let tempBoard = [...board]
+                tempBoard[selectedCellRow][selectedCellCol] = key
+                setBoard(tempBoard)
+            }
+        };
+        window.addEventListener('keydown', handleKeyPress);
+
+        return () => {
+            window.removeEventListener('keydown', handleKeyPress);
+        };
+    }, [selectedCellCol, selectedCellRow]);
+
     return (
         <div className='app-container'>
             {/* <div className='left-panel'></div> */}
@@ -66,8 +100,7 @@ const SudokuBoard = () => {
                 <Header />
                 <div>
                     <label>Difficulty: </label>
-                    <select 
-                        defaultValue={DIFFICULTY.EASY}
+                    <select
                         value={difficulty}
                         onChange={handleDifficultyChange}
                     >
@@ -81,33 +114,45 @@ const SudokuBoard = () => {
                     {
                         board.map((row, rowIndex) => {
                             return (
-                                    <>
-                                        {
-                                            row.map((cell, colIndex) => {
-                                                return (
-                                                    <SudokuCell
-                                                        value={cell}
-                                                        rowIndex={rowIndex}
-                                                        colIndex={colIndex}
-                                                        setBoard={setBoard}
-                                                        board={board}
-                                                        setActionstack={setActionstack}
-                                                        actionStack={actionStack}
-                                                        selectedNumber={selectedNumber}
-                                                        setSelectedNumber={setSelectedNumber}
-                                                    />
-                                                )
-                                            })
-                                        }
-                                    </>
+                                <>
+                                    {
+                                        row.map((cell, colIndex) => {
+                                            return (
+                                                <SudokuCell
+                                                    value={cell}
+                                                    rowIndex={rowIndex}
+                                                    colIndex={colIndex}
+                                                    setBoard={setBoard}
+                                                    board={board}
+                                                    setActionstack={setActionstack}
+                                                    actionStack={actionStack}
+                                                    selectedNumber={selectedNumber}
+                                                    setSelectedNumber={setSelectedNumber}
+                                                    selectedCellRow={selectedCellRow}
+                                                    selectedCellCol={selectedCellCol}
+                                                    setSelectedCellRow={setSelectedCellRow}
+                                                    setSelectedCellCol={setSelectedCellCol}
+                                                />
+                                            )
+                                        })
+                                    }
+                                </>
                             )
                         })
                     }
                 </div>
-                {/* <div className='status'>
-                    {status}
-                </div> */}
-                <div className='buttons'>
+                <div className='number-buttons'>
+                    {
+                        numberArray.map((num) => {
+                            return (
+                                <button className='number-button' onClick={() => fillCellWithNumber(num)}>
+                                    {num}
+                                </button>
+                            )
+                        })
+                    }
+                </div>
+                <div className='util-buttons'>
                     <button className='solve-button' onClick={solveBoard}>
                         Solve sudoku
                     </button>

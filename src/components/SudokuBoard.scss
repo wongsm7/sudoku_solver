@@ -20,11 +20,11 @@
     border: 5px solid;
 }
 
-.buttons {
+.util-buttons, .number-buttons {
     display: flex;
     flex-direction: row;
-    align-items: center;
 }
+
 .status {
     margin-top: 20px;
     border: 1px solid white;
@@ -34,28 +34,43 @@
     align-items: center;
 }
 
-button {
+.number-button {
+    border: 1px solid rgb(216, 216, 216);
+    padding: 12px;
+    margin: 4px;
+}
+
+.solve-button, .reset-button, .undo-button, .generate-button  {
+    margin: 10px;
     padding: 20px;
 }
 
-.reset-button, .undo-button, .generate-button  {
-    margin-left: 20px;
-}
-
 @media (min-width: 280px) {
-    button {
+    .solve-button, .reset-button, .undo-button, .generate-button {
         padding: 0px;
     }
+
+    .number-button {
+        padding: 6px;
+    }    
 }
 
 @media (min-width: 375px) {
-    button {
+    .solve-button, .reset-button, .undo-button, .generate-button {
         padding: 10px;
     }
+
+    .number-button {
+        padding: 10px;
+    }    
 }
 
 @media (min-width: 414px) {
-    button {
+    .solve-button, .reset-button, .undo-button, .generate-button {
         padding: 15px;
     }
+
+    .number-button {
+        padding: 12px;
+    }    
 }

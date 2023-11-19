@@ -5,14 +5,22 @@
     caret-color: transparent;
 }
 
-.cell-selected {
+.number-selected {
     background: rgb(112, 104, 104);
 }
 
-.cell:focus {
+.cell-selected {
     outline: none !important;
-    border:1px solid red;
+    border: 2px solid red !important;
     box-shadow: 0 0 10px #ce7179;
+}
+
+.cell:hover {
+    background: rgb(112, 104, 104);
+}
+
+.cell-input:hover {
+    background: rgb(112, 104, 104);
 }
 
 .cell-border-left {
@@ -35,7 +43,7 @@
     .cell {
         width: 31px;
         height: 31px;
-        font-size: 20px;
+        font-size: 14px;
     }
 }
 
@@ -43,7 +51,7 @@
     .cell {
         width: 36px;
         height: 36px;
-        font-size: 20px;
+        font-size: 16px;
     }
 }
 
@@ -51,14 +59,14 @@
     .cell {
         width: 40px;
         height: 40px;
-        font-size: 20px;
+        font-size: 18px;
     }
 }
 
 @media (min-width: 576px) {
     .cell {
-        width: 56px;
-        height: 56px;
+        width: 44px;
+        height: 44px;
         font-size: 20px;
     }
 }
@@ -66,25 +74,8 @@
 // Medium devices (tablets, 768px and up)
 @media (min-width: 768px) {  
     .cell {
-        width: 64px;
-        height: 64px;
+        width: 48px;
+        height: 48px;
         font-size: 20px;
     }
-}
-
-// Large devices (desktops, 992px and up)
-@media (min-width: 992px) {  
-    .cell {
-        width: 68px;
-        height: 68px;
-        font-size: 20px;
-    }
-}
-
-.cell:hover {
-    background: rgb(112, 104, 104);
-}
-
-.cell-input:hover {
-    background: rgb(112, 104, 104);
 }

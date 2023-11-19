@@ -1,7 +1,7 @@
 interface Action {
     x: number,
     y: number,
-    value: string
+    value: string | number
 }
 
 
