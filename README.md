@@ -1,4 +1,4 @@
 # sudoku_solver
-Created with React + TypeScript + Vite
+A sudoku app that can generate and solve Sudoku(s). Created with React + TypeScript + Vite.
 
 Deployed at https://sm-sudoku-solver.netlify.app/
