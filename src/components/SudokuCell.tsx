@@ -1,26 +1,21 @@
 import './SudokuCell.scss'
-import Action from '../models/Action'
 import { cellBorderClassNameMapping } from '../utils/CellBorderUtils'
+import { useDispatch, useSelector } from 'react-redux'
+import { RootState } from '../app/Store'
+import { setSelectedCellCol, setSelectedCellRow, setSelectedNumber } from '../features/SudokuSlice'
 
 type Props = {
     value: string,
     rowIndex: number,
-    colIndex: number,
-    setBoard: Function,
-    board: Array<Array<string | number>>,
-    setActionstack: Function,
-    actionStack: Array<Action>,
-    selectedNumber: string,
-    setSelectedNumber: Function,
-    selectedCellCol: number,
-    setSelectedCellCol: Function,
-    selectedCellRow: number,
-    setSelectedCellRow: Function,
+    colIndex: number
 }
 
 const SudokuCell = (props: Props) => {
-    let { value, rowIndex, colIndex, setBoard, board, setActionstack, actionStack, selectedNumber, setSelectedNumber,
-        selectedCellCol, setSelectedCellCol, selectedCellRow, setSelectedCellRow } = props
+    let { value, rowIndex, colIndex } = props
+    let dispatch = useDispatch()
+    let selectedNumber = useSelector((state: RootState) => state.sudoku.selectedNumber)
+    let selectedCellRow = useSelector((state: RootState) => state.sudoku.selectedCellRow)
+    let selectedCellCol = useSelector((state: RootState) => state.sudoku.selectedCellCol)
 
     let isNumberSelected: boolean = selectedNumber != '' && selectedNumber == value
 
@@ -33,35 +28,16 @@ const SudokuCell = (props: Props) => {
         return s
     }
 
-    let onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const re: RegExp = /^[1-9\b]+$/
-        let newValue = e.target.value
-        if (re.test(newValue) || newValue === '') {
-            let tempBoard: Array<Array<string | number>> = [...board]
-            let tempStack = [...actionStack]
-            tempStack.push({
-                x: rowIndex,
-                y: colIndex,
-                value: board[rowIndex][colIndex]
-            })
-            setActionstack(tempStack)
-            tempBoard[rowIndex][colIndex] = newValue
-            setBoard(tempBoard)
-            setSelectedNumber(newValue)
-        }
-    }
-
     let onClick = () => {
-        setSelectedNumber(value)
-        setSelectedCellCol(colIndex)
-        setSelectedCellRow(rowIndex)
+        dispatch(setSelectedNumber(value))
+        dispatch(setSelectedCellCol(colIndex))
+        dispatch(setSelectedCellRow(rowIndex))
     }
-
 
     return (
         <input
             maxLength={1}
-            onChange={onChange}
+            readOnly={true}
             value={value}
             className={`cell ${(isNumberSelected && 'number-selected')} ${isCellSelected && 'cell-selected'} ${cellBorderClass()}`}
             onClick={onClick}

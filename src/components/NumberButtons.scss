@@ -1,0 +1,28 @@
+.number-buttons {
+    display: flex;
+    flex-direction: row;
+}
+
+.number-button {
+    border: 1px solid rgb(216, 216, 216);
+    padding: 12px;
+    margin: 4px;
+}
+
+@media (min-width: 280px) {
+    .number-button {
+        padding: 4px;
+    }    
+}
+
+@media (min-width: 375px) {
+    .number-button {
+        padding: 10px;
+    }    
+}
+
+@media (min-width: 414px) {
+    .number-button {
+        padding: 12px;
+    }    
+}

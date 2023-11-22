@@ -1,6 +1,6 @@
 .cell {
     border: 1px dotted;
-    box-sizing:border-box;
+    box-sizing: border-box;
     text-align: center;
     caret-color: transparent;
 }
@@ -41,8 +41,8 @@
 
 @media (min-width: 280px) {
     .cell {
-        width: 31px;
-        height: 31px;
+        width: 30px;
+        height: 30px;
         font-size: 14px;
     }
 }

@@ -2,7 +2,7 @@ import { completedBoard } from "../data/CompletedBoard"
 import { randomNumber, sample } from "./RandomUtils"
 import { swapColumn, swapRow, swapNumber } from "./SwapUtils"
 
-const isValidSudoku = (board: Array<Array<String>>): boolean => {
+const isValidSudoku = (board: Array<Array<string>>): boolean => {
     for (let i = 0; i < 9; i++) {
         let rowSet = new Set()
         let columnSet = new Set()
@@ -25,7 +25,7 @@ const isValidSudoku = (board: Array<Array<String>>): boolean => {
     return true
 }
 
-const isCompletedSudoku = (board: Array<Array<String>>): boolean => {
+const isCompletedSudoku = (board: Array<Array<string>>): boolean => {
     for (let i = 0; i < 9; i++) {
         for (let j = 0; j < 9; j++) {
             if (board[i][j] == '') {
@@ -36,7 +36,7 @@ const isCompletedSudoku = (board: Array<Array<String>>): boolean => {
     return true
 }
 
-const checkSudoku = (board: Array<Array<String>>): String => {
+const checkSudoku = (board: Array<Array<string>>): string => {
     if (isCompletedSudoku(board) && isValidSudoku(board)) {
         return "Completed successfully"
     } else if (!isValidSudoku(board)) {
@@ -48,7 +48,7 @@ const checkSudoku = (board: Array<Array<String>>): String => {
     }
 }
 
-let solveSudoku = (board: Array<Array<String>>, x: number, y: number): boolean => {
+let solveSudoku = (board: Array<Array<string>>, x: number, y: number): boolean => {
     // base case: all cell done
     if (x == board.length - 1 && y == board.length) {
         return true
@@ -71,7 +71,7 @@ let solveSudoku = (board: Array<Array<String>>, x: number, y: number): boolean =
     for (let n = 1; n < 10; n++) {
         // check if num is valid
         if (isValid(board, x, y, n)) {
-            board[x][y] = '' + n
+            board[x][y] = n.toString()
             if (solveSudoku(board, x, y + 1)) {
                 return true
             }
@@ -82,7 +82,7 @@ let solveSudoku = (board: Array<Array<String>>, x: number, y: number): boolean =
 
 }
 
-let isValid = (board: Array<Array<String>>, x: number, y: number, num: number) => {
+let isValid = (board: Array<Array<string>>, x: number, y: number, num: number) => {
     // check column
     for (let i = 0; i < board.length; i++) {
         if (board[x][i] == num.toString()) {

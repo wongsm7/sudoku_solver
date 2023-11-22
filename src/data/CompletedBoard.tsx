@@ -1,4 +1,4 @@
-let completedBoard: Array<Array<String>> = [
+let completedBoard: Array<Array<string>> = [
     [
         '3', '1', '6',
         '5', '7', '8',
