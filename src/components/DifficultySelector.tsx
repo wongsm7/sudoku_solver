@@ -1,4 +1,3 @@
-import React from 'react'
 import { DIFFICULTY } from '../constants/Difficulty'
 import { setDifficulty } from '../features/SudokuSlice'
 import { useDispatch, useSelector } from 'react-redux'
