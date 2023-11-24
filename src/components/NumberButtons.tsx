@@ -43,7 +43,7 @@ const NumberButtons = () => {
             {
                 numberArray.map((num) => {
                     return (
-                        <button className={`number-button ${selectedNumber == num && 'selected'}`} onClick={() => fillCellWithNumber(num)}>
+                        <button className={`number-button ${(selectedNumber == num || (num == 'Clear' && selectedNumber == '')) && 'selected'}`} onClick={() => fillCellWithNumber(num)}>
                             {num}
                         </button>
                     )
