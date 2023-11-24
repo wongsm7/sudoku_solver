@@ -2,7 +2,7 @@ import './SudokuCell.scss'
 import { cellBorderClassNameMapping } from '../utils/CellBorderUtils'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../app/Store'
-import { setCell, setSelectedCellCol, setSelectedCellRow, setSelectedNumber } from '../features/SudokuSlice'
+import { setSelectedCellCol, setSelectedCellRow } from '../features/SudokuSlice'
 
 type Props = {
     value: string,
