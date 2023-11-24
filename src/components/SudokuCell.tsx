@@ -2,7 +2,7 @@ import './SudokuCell.scss'
 import { cellBorderClassNameMapping } from '../utils/CellBorderUtils'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../app/Store'
-import { setSelectedCellCol, setSelectedCellRow, setSelectedNumber } from '../features/SudokuSlice'
+import { setCell, setSelectedCellCol, setSelectedCellRow, setSelectedNumber } from '../features/SudokuSlice'
 
 type Props = {
     value: string,
@@ -29,10 +29,10 @@ const SudokuCell = (props: Props) => {
     }
 
     let onClick = () => {
-        dispatch(setSelectedNumber(value))
         dispatch(setSelectedCellCol(colIndex))
         dispatch(setSelectedCellRow(rowIndex))
     }
+    
 
     return (
         <input
@@ -40,7 +40,7 @@ const SudokuCell = (props: Props) => {
             readOnly={true}
             value={value}
             className={`cell ${(isNumberSelected && 'number-selected')} ${isCellSelected && 'cell-selected'} ${cellBorderClass()}`}
-            onClick={onClick}
+            onClick={() => onClick()}
             inputMode='none'
         />
     )

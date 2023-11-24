@@ -8,6 +8,14 @@
     padding: 20px;
 }
 
+button {
+    border-radius: 1px;
+}
+
+button:hover {
+    background-color: #0984e3;
+}
+
 @media (min-width: 280px) {
     .solve-button, .reset-button, .undo-button, .generate-button {
         padding: 0px;

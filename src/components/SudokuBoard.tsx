@@ -3,16 +3,31 @@ import './SudokuBoard.scss'
 import SudokuCell from './SudokuCell'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../app/Store'
-import { setCell, setSelectedCellCol, setSelectedCellRow, setSelectedNumber } from '../features/SudokuSlice'
+import { setCell, setFastPencil, setSelectedCellCol, setSelectedCellRow, setSelectedNumber } from '../features/SudokuSlice'
 import { pushMove } from '../features/MoveStackSlice'
+import Switch from '@mui/material/Switch';
 
 const SudokuBoard = () => {
     let dispatch = useDispatch()
     let board: Array<Array<string>> = useSelector((state: RootState) => state.sudoku.board)
     let selectedCellRow = useSelector((state: RootState) => state.sudoku.selectedCellRow)
     let selectedCellCol = useSelector((state: RootState) => state.sudoku.selectedCellCol)
+    let fastPencil = useSelector((state: RootState) => state.sudoku.fastPencil)
+    let selectedNumber = useSelector((state: RootState) => state.sudoku.selectedNumber)
+
+    let handleSwitchChange = () => {
+        dispatch(setFastPencil(!fastPencil))
+    }
 
     useEffect(() => {
+        if (fastPencil) {
+            dispatch(setCell({
+                x: selectedCellRow,
+                y: selectedCellCol,
+                value: selectedNumber
+            }))
+        }
+
         const handleKeyPress = (event: any) => {
             let key = event.key
             if (key === 'Escape') {
@@ -27,6 +42,7 @@ const SudokuBoard = () => {
                     y: selectedCellCol,
                     value: ''
                 }))
+                dispatch(setSelectedNumber(''))
             }
 
             if (/^[1-9]$/i.test(key)) {
@@ -42,6 +58,7 @@ const SudokuBoard = () => {
                     value: key.toString()
                 }))
 
+                dispatch(setSelectedNumber(key.toString()))
             }
         };
         window.addEventListener('keydown', handleKeyPress);
@@ -52,26 +69,35 @@ const SudokuBoard = () => {
     }, [selectedCellCol, selectedCellRow]);
 
     return (
-        <div className='sudoku-board'>
-            {
-                board.map((row, rowIndex) => {
-                    return (
-                        <>
-                            {
-                                row.map((cell, colIndex) => {
-                                    return (
-                                        <SudokuCell
-                                            value={cell}
-                                            rowIndex={rowIndex}
-                                            colIndex={colIndex}
-                                        />
-                                    )
-                                })
-                            }
-                        </>
-                    )
-                })
-            }
+        <div>
+            <div className='sudoku-board'>
+                {
+                    board.map((row, rowIndex) => {
+                        return (
+                            <>
+                                {
+                                    row.map((cell, colIndex) => {
+                                        return (
+                                            <SudokuCell
+                                                value={cell}
+                                                rowIndex={rowIndex}
+                                                colIndex={colIndex}
+                                            />
+                                        )
+                                    })
+                                }
+                            </>
+                        )
+                    })
+                }
+                <div className='fast-pencil'>
+                    <label>⚡️</label>
+                    <Switch 
+                        checked={fastPencil}
+                        onChange={handleSwitchChange}
+                    />
+                </div>
+            </div>
         </div>
     )
 }

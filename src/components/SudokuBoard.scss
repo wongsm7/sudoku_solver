@@ -3,4 +3,11 @@
     grid-template-columns: repeat(9, 1fr);
     margin: 1px;
     border: 5px solid;
+    position: relative;
+}
+
+.fast-pencil {
+    position: absolute;
+    bottom: -40px;
+    right: -10px;
 }

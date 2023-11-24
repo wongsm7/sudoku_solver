@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux'
-import { setCell } from '../features/SudokuSlice'
+import { setCell, setSelectedNumber } from '../features/SudokuSlice'
 import { RootState } from '../app/Store'
 import './NumberButtons.scss'
 import { pushMove } from '../features/MoveStackSlice'
@@ -10,9 +10,20 @@ const NumberButtons = () => {
     let dispatch = useDispatch()
     let selectedCellRow = useSelector((state: RootState) => state.sudoku.selectedCellRow)
     let selectedCellCol = useSelector((state: RootState) => state.sudoku.selectedCellCol)
+    let selectedNumber = useSelector((state: RootState) => state.sudoku.selectedNumber)
     let board: Array<Array<string>> = useSelector((state: RootState) => state.sudoku.board)
 
     let fillCellWithNumber = (value: string) => {
+        if (value == 'Clear') {
+            dispatch(setSelectedNumber(''))
+        } else {
+            dispatch(setSelectedNumber(value))
+        }
+
+        if (selectedCellRow == -1 || selectedCellCol == -1) {
+            return
+        }
+
         dispatch(setCell({
             x: selectedCellRow,
             y: selectedCellCol,
@@ -24,6 +35,7 @@ const NumberButtons = () => {
                 y: selectedCellCol,
                 value: board[selectedCellRow][selectedCellCol]
         }))
+
     }
 
     return (
@@ -31,7 +43,7 @@ const NumberButtons = () => {
             {
                 numberArray.map((num) => {
                     return (
-                        <button className='number-button' onClick={() => fillCellWithNumber(num)}>
+                        <button className={`number-button ${selectedNumber == num && 'selected'}`} onClick={() => fillCellWithNumber(num)}>
                             {num}
                         </button>
                     )

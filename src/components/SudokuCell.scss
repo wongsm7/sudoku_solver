@@ -6,21 +6,21 @@
 }
 
 .number-selected {
-    background: rgb(112, 104, 104);
+    background: #0984e3;
 }
 
 .cell-selected {
     outline: none !important;
-    border: 2px solid red !important;
-    box-shadow: 0 0 10px #ce7179;
+    border: 2px solid #0984e3 !important;
+    box-shadow: 0 0 10px #0984e3;
 }
 
 .cell:hover {
-    background: rgb(112, 104, 104);
+    background: #0984e3;
 }
 
 .cell-input:hover {
-    background: rgb(112, 104, 104);
+    background: #0984e3;
 }
 
 .cell-border-left {

@@ -9,6 +9,14 @@
     margin: 4px;
 }
 
+.number-button:hover {
+    background-color: #0984e3;
+}
+
+.selected {
+    background-color: #0984e3;
+}
+
 @media (min-width: 280px) {
     .number-button {
         padding: 4px;

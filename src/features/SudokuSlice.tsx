@@ -10,7 +10,8 @@ export interface SudokuState {
   selectedCellRow: number,
   selectedCellCol: number,
   selectedNumber: string,
-  difficulty: number
+  difficulty: number,
+  fastPencil: boolean
 }
 
 const initialState: SudokuState = {
@@ -18,7 +19,8 @@ const initialState: SudokuState = {
   selectedCellRow: -1,
   selectedCellCol: -1,
   selectedNumber: '',
-  difficulty: DIFFICULTY.EASY
+  difficulty: DIFFICULTY.EASY,
+  fastPencil: false
 }
 
 export const sudokuSlice = createSlice({
@@ -50,11 +52,13 @@ export const sudokuSlice = createSlice({
     },
     setDifficulty: (state, action: PayloadAction<number>) => {
       state.difficulty = action.payload
+    },
+    setFastPencil: (state, action: PayloadAction<boolean>) => {
+      state.fastPencil = action.payload
     }
   },
 })
 
-// Action creators are generated for each case reducer function
-export const { setBoard, solveBoard, setCell, setSelectedCellRow, setSelectedCellCol, setSelectedNumber, setDifficulty, generateBoard } = sudokuSlice.actions
+export const { setBoard, solveBoard, setCell, setSelectedCellRow, setSelectedCellCol, setSelectedNumber, setDifficulty, generateBoard, setFastPencil } = sudokuSlice.actions
 
 export default sudokuSlice.reducer
