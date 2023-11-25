@@ -18,15 +18,10 @@ const SudokuBoard = () => {
 
     let handleSwitchChange = () => {
         dispatch(setFastPencil(!fastPencil))
-    }
+    }  
 
     useEffect(() => {
-      console.log(isFixedBoard)
-    }, [isFixedBoard])
-    
-
-    useEffect(() => {
-        if (fastPencil) {
+        if (fastPencil && !isFixedBoard[selectedCellRow][selectedCellCol] && selectedNumber != '') {
             dispatch(setCell({
                 x: selectedCellRow,
                 y: selectedCellCol,

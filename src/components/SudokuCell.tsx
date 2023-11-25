@@ -17,6 +17,7 @@ const SudokuCell = (props: Props) => {
     let selectedNumber = useSelector((state: RootState) => state.sudoku.selectedNumber)
     let selectedCellRow = useSelector((state: RootState) => state.sudoku.selectedCellRow)
     let selectedCellCol = useSelector((state: RootState) => state.sudoku.selectedCellCol)
+    let fastPencil = useSelector((state: RootState) => state.sudoku.fastPencil)
 
     let isNumberSelected: boolean = selectedNumber != '' && selectedNumber == value
     let isCellSelected: boolean = rowIndex == selectedCellRow && colIndex == selectedCellCol
@@ -29,9 +30,11 @@ const SudokuCell = (props: Props) => {
     }
 
     let onClick = () => {
-        dispatch(setSelectedNumber(value))
         dispatch(setSelectedCellCol(colIndex))
         dispatch(setSelectedCellRow(rowIndex))
+        if (!fastPencil) {
+            dispatch(setSelectedNumber(value))
+        }
     }
     
 
