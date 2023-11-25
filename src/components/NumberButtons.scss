@@ -3,13 +3,13 @@
     flex-direction: row;
 }
 
-.number-button {
+.number-button, .clear-button {
     border: 1px solid rgb(216, 216, 216);
     padding: 12px;
     margin: 4px;
 }
 
-.number-button:hover {
+.number-button:hover, .clear-button:hover{
     background-color: #0984e3;
 }
 

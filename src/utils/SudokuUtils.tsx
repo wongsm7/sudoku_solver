@@ -1,4 +1,5 @@
 import { completedBoard } from "../data/CompletedBoard"
+import { unFixedBoard } from "../data/EmptyBoard"
 import { randomNumber, sample } from "./RandomUtils"
 import { swapColumn, swapRow, swapNumber } from "./SwapUtils"
 
@@ -144,4 +145,16 @@ let generateSudoku = (difficulty: number) => {
     return board
 }
 
-export { checkSudoku, isValidSudoku, solveSudoku, generateSudoku }
+let generateFixedBoard = (board: Array<Array<string>>) => {
+    let isFixedBoard = [...unFixedBoard].map(row => [...row])
+    for (let i = 0; i < 9; i++) {
+        for (let j = 0; j < 9; j++) {
+          if (board[i][j] != '') {
+            isFixedBoard[i][j] = true
+          }
+        }
+    }
+    return isFixedBoard
+}
+
+export { checkSudoku, isValidSudoku, solveSudoku, generateSudoku, generateFixedBoard }

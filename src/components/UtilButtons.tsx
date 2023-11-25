@@ -1,7 +1,7 @@
 import { generateSudoku, isValidSudoku } from '../utils/SudokuUtils'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../app/Store'
-import { setBoard, setCell, solveBoard } from '../features/SudokuSlice'
+import { clearBoard, generateBoard, setCell, solveBoard } from '../features/SudokuSlice'
 import { emptyBoard } from '../data/EmptyBoard'
 import './UtilButtons.scss'
 import { clearMoves, popMove, pushMove } from '../features/MoveStackSlice'
@@ -26,31 +26,28 @@ const UtilButtons = () => {
 }
 
 let reset= () => {
-    dispatch(setBoard(emptyBoard))
+    dispatch(clearBoard())
     dispatch(clearMoves())
 }
 
 let undo = () => {
     if (actionStack.length == 0) {
-        console.log("actionstack 0")
         return
     }
 
     let { x, y, value }: any = actionStack[actionStack.length - 1]
-    console.log(x, y, value)
     dispatch(popMove())
     if (x == -1 && y == -1) {
-        dispatch(setBoard(emptyBoard))
+        dispatch(clearBoard())
         return
     }
-    console.log(x, y, value)
     dispatch(setCell({
         x, y, value
     }))
 }
 
 let generate = () => {
-    dispatch(setBoard(generateSudoku(difficulty)))
+    dispatch(generateBoard())
 }
 
   return (

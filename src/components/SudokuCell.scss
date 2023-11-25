@@ -1,26 +1,35 @@
 .cell {
-    border: 1px dotted;
+    border: 1px dotted white;
     box-sizing: border-box;
     text-align: center;
     caret-color: transparent;
 }
 
+.fixed {
+   color:white;
+}
+
+.unfixed {
+    color: #6db9f7;
+    font-weight: bold;
+}
+
 .number-selected {
-    background: #0984e3;
+    background: rgba(220, 224, 228, 0.301);
 }
 
 .cell-selected {
     outline: none !important;
-    border: 2px solid #0984e3 !important;
-    box-shadow: 0 0 10px #0984e3;
+    border: 2px solid rgba(220, 224, 228, 0.301) !important;
+    box-shadow: 0 0 10px rgba(220, 224, 228, 0.301);
 }
 
 .cell:hover {
-    background: #0984e3;
+    background: rgba(220, 224, 228, 0.301);
 }
 
 .cell-input:hover {
-    background: #0984e3;
+    background: rgba(220, 224, 228, 0.301);
 }
 
 .cell-border-left {

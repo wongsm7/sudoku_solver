@@ -10,6 +10,7 @@ import Switch from '@mui/material/Switch';
 const SudokuBoard = () => {
     let dispatch = useDispatch()
     let board: Array<Array<string>> = useSelector((state: RootState) => state.sudoku.board)
+    let isFixedBoard: Array<Array<boolean>> = useSelector((state: RootState) => state.sudoku.isFixedBoard)
     let selectedCellRow = useSelector((state: RootState) => state.sudoku.selectedCellRow)
     let selectedCellCol = useSelector((state: RootState) => state.sudoku.selectedCellCol)
     let fastPencil = useSelector((state: RootState) => state.sudoku.fastPencil)
@@ -18,6 +19,11 @@ const SudokuBoard = () => {
     let handleSwitchChange = () => {
         dispatch(setFastPencil(!fastPencil))
     }
+
+    useEffect(() => {
+      console.log(isFixedBoard)
+    }, [isFixedBoard])
+    
 
     useEffect(() => {
         if (fastPencil) {
@@ -36,12 +42,23 @@ const SudokuBoard = () => {
                 dispatch(setSelectedCellRow(-1))
             }
 
+            if (isFixedBoard[selectedCellRow][selectedCellCol]) {
+                return
+            }
+
             if (key === "Backspace" || key === "Delete") {
                 dispatch(setCell({
                     x: selectedCellRow,
                     y: selectedCellCol,
                     value: ''
                 }))
+
+                dispatch(pushMove({
+                    x: selectedCellRow,
+                    y: selectedCellCol,
+                    value: board[selectedCellRow][selectedCellCol]
+                }))
+                
                 dispatch(setSelectedNumber(''))
             }
 
@@ -82,6 +99,7 @@ const SudokuBoard = () => {
                                                 value={cell}
                                                 rowIndex={rowIndex}
                                                 colIndex={colIndex}
+                                                isFixed={isFixedBoard[rowIndex][colIndex]}
                                             />
                                         )
                                     })

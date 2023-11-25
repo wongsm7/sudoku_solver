@@ -5,37 +5,60 @@ import './NumberButtons.scss'
 import { pushMove } from '../features/MoveStackSlice'
 
 const NumberButtons = () => {
-    let numberArray: Array<string> = ['1', '2', '3', '4', '5', '6', '7', '8', '9', 'Clear']
+    let numberArray: Array<string> = ['1', '2', '3', '4', '5', '6', '7', '8', '9']
 
     let dispatch = useDispatch()
     let selectedCellRow = useSelector((state: RootState) => state.sudoku.selectedCellRow)
     let selectedCellCol = useSelector((state: RootState) => state.sudoku.selectedCellCol)
     let selectedNumber = useSelector((state: RootState) => state.sudoku.selectedNumber)
     let board: Array<Array<string>> = useSelector((state: RootState) => state.sudoku.board)
+    let isFixedBoard: Array<Array<boolean>> = useSelector((state: RootState) => state.sudoku.isFixedBoard)
 
     let fillCellWithNumber = (value: string) => {
-        if (value == 'Clear') {
-            dispatch(setSelectedNumber(''))
-        } else {
-            dispatch(setSelectedNumber(value))
-        }
+        dispatch(setSelectedNumber(value))
 
         if (selectedCellRow == -1 || selectedCellCol == -1) {
+            return
+        }
+
+        if (isFixedBoard[selectedCellRow][selectedCellCol]) {
             return
         }
 
         dispatch(setCell({
             x: selectedCellRow,
             y: selectedCellCol,
-            value: value == 'Clear' ? '' : value
+            value: value
         }))
 
         dispatch(pushMove({
-                x: selectedCellRow,
-                y: selectedCellCol,
-                value: board[selectedCellRow][selectedCellCol]
+            x: selectedCellRow,
+            y: selectedCellCol,
+            value: board[selectedCellRow][selectedCellCol]
         }))
 
+    }
+
+    let clearCell = () => {
+        if (selectedCellRow == -1 || selectedCellCol == -1) {
+            return
+        }
+
+        if (isFixedBoard[selectedCellRow][selectedCellCol]) {
+            return
+        }
+
+        dispatch(setCell({
+            x: selectedCellRow,
+            y: selectedCellCol,
+            value: ''
+        }))
+
+        dispatch(pushMove({
+            x: selectedCellRow,
+            y: selectedCellCol,
+            value: board[selectedCellRow][selectedCellCol]
+        }))
     }
 
     return (
@@ -43,12 +66,15 @@ const NumberButtons = () => {
             {
                 numberArray.map((num) => {
                     return (
-                        <button className={`number-button ${(selectedNumber == num || (num == 'Clear' && selectedNumber == '')) && 'selected'}`} onClick={() => fillCellWithNumber(num)}>
+                        <button className={`number-button ${selectedNumber == num && 'selected'}`} onClick={() => fillCellWithNumber(num)}>
                             {num}
                         </button>
                     )
                 })
             }
+            <button className={`clear-button`} onClick={() => clearCell()}>
+                Clear
+            </button>
         </div>
     )
 }

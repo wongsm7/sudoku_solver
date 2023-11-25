@@ -1,3 +1,5 @@
 let emptyBoard: Array<Array<string>> = [...Array(9)].map(() => Array(9).fill(''))
 
-export { emptyBoard }
+let unFixedBoard: Array<Array<boolean>> = [...Array(9)].map(() => Array(9).fill(false))
+
+export { emptyBoard, unFixedBoard }

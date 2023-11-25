@@ -1,12 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 import type Move from '../models/Move'
-import { emptyBoard } from '../data/EmptyBoard'
-import { generateSudoku, solveSudoku } from '../utils/SudokuUtils'
+import { emptyBoard, unFixedBoard } from '../data/EmptyBoard'
+import { generateFixedBoard, generateSudoku, solveSudoku } from '../utils/SudokuUtils'
 import { DIFFICULTY } from '../constants/Difficulty'
 
 export interface SudokuState {
   board: Array<Array<string>>,
+  isFixedBoard: Array<Array<boolean>>
   selectedCellRow: number,
   selectedCellCol: number,
   selectedNumber: string,
@@ -16,6 +17,7 @@ export interface SudokuState {
 
 const initialState: SudokuState = {
   board: emptyBoard,
+  isFixedBoard: unFixedBoard,
   selectedCellRow: -1,
   selectedCellCol: -1,
   selectedNumber: '',
@@ -27,11 +29,14 @@ export const sudokuSlice = createSlice({
   name: 'sudoku',
   initialState,
   reducers: {
-    setBoard: (state, action: PayloadAction<Array<Array<string>>>) => {
-      state.board = action.payload
+    clearBoard: (state) => {
+      state.board = emptyBoard
+      state.isFixedBoard = unFixedBoard
     },
     generateBoard: (state) => {
-      state.board = generateSudoku(state.difficulty)
+      let newBoard = generateSudoku(state.difficulty)
+      state.board = newBoard
+      state.isFixedBoard = generateFixedBoard(newBoard)
     },
     solveBoard: (state, action: PayloadAction<Array<Array<string>>>) => {
       let tempBoard = JSON.parse(JSON.stringify(action.payload))
@@ -59,6 +64,6 @@ export const sudokuSlice = createSlice({
   },
 })
 
-export const { setBoard, solveBoard, setCell, setSelectedCellRow, setSelectedCellCol, setSelectedNumber, setDifficulty, generateBoard, setFastPencil } = sudokuSlice.actions
+export const { clearBoard, solveBoard, setCell, setSelectedCellRow, setSelectedCellCol, setSelectedNumber, setDifficulty, generateBoard, setFastPencil } = sudokuSlice.actions
 
 export default sudokuSlice.reducer
