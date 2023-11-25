@@ -1,15 +1,13 @@
-import { generateSudoku, isValidSudoku } from '../utils/SudokuUtils'
+import { isValidSudoku } from '../utils/SudokuUtils'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../app/Store'
 import { clearBoard, generateBoard, setCell, solveBoard } from '../features/SudokuSlice'
-import { emptyBoard } from '../data/EmptyBoard'
 import './UtilButtons.scss'
 import { clearMoves, popMove, pushMove } from '../features/MoveStackSlice'
 
 const UtilButtons = () => {
   let dispatch = useDispatch()
   let actionStack = useSelector((state: RootState) => state.moveStack.stack)
-  let difficulty = useSelector((state: RootState) => state.sudoku.difficulty)
   let board: Array<Array<string>> = useSelector((state: RootState) => state.sudoku.board)
 
 
