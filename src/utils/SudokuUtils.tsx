@@ -82,7 +82,7 @@ let solveSudoku = (board: Array<Array<string>>, x: number, y: number): boolean =
 
 }
 
-let isValid = (board: Array<Array<string>>, x: number, y: number, num: number): boolean => {
+let isValid = (board: Array<Array<string>>, x: number, y: number, num: number) => {
     // check column
     for (let i = 0; i < board.length; i++) {
         if (board[x][i] == num.toString()) {
@@ -117,7 +117,7 @@ let clueMapper: any = {
     4: 18,
 }
 
-let generateSudoku = (difficulty: number): Array<Array<string>> => {
+let generateSudoku = (difficulty: number) => {
     let board = [...completedBoard].map(row => [...row])
     //solveSudoku(board, 0, 0)
     // swap columns
@@ -144,20 +144,4 @@ let generateSudoku = (difficulty: number): Array<Array<string>> => {
     return board
 }
 
-let getNumberOfEmptyCells = (board: Array<Array<string>>): number => {
-    let count = 0;
-    for (let i = 0; i < 9; i++) {
-        for (let j = 0; j < 9; j++) {
-            if (board[i][j] == '') {
-                count++
-            }
-        }
-    }
-    return count
-}
-
-let getNumberOfFilledCells = (board: Array<Array<string>>): number => {
-    return 81 - getNumberOfEmptyCells(board)
-}
-
-export { checkSudoku, isValidSudoku, solveSudoku, generateSudoku, getNumberOfFilledCells, getNumberOfEmptyCells }
+export { checkSudoku, isValidSudoku, solveSudoku, generateSudoku }

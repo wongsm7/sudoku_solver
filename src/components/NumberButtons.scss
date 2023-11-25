@@ -1,7 +1,6 @@
 .number-buttons {
     display: flex;
     flex-direction: row;
-    margin-top: 10px;
 }
 
 .number-button {
@@ -26,12 +25,12 @@
 
 @media (min-width: 375px) {
     .number-button {
-        padding: 8px;
+        padding: 10px;
     }    
 }
 
 @media (min-width: 414px) {
     .number-button {
-        padding: 10px;
+        padding: 12px;
     }    
 }
