@@ -19,6 +19,7 @@ export interface SudokuState {
 const initialState: SudokuState = {
   board: emptyBoard,
   isFixedBoard: unFixedBoard,
+  currentPuzzleBoard: emptyBoard,
   selectedCellRow: -1,
   selectedCellCol: -1,
   selectedNumber: '',
