@@ -22,6 +22,12 @@ const SudokuBoard = () => {
 
     useEffect(() => {
         if (fastPencil && !isFixedBoard[selectedCellRow][selectedCellCol] && selectedNumber != '') {
+            dispatch(pushMove({
+                x: selectedCellRow,
+                y: selectedCellCol,
+                value: board[selectedCellRow][selectedCellCol]
+            }))
+
             dispatch(setCell({
                 x: selectedCellRow,
                 y: selectedCellCol,

@@ -1,7 +1,7 @@
 import { isValidSudoku } from '../utils/SudokuUtils'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../app/Store'
-import { clearBoard, generateBoard, setCell, solveBoard } from '../features/SudokuSlice'
+import { clearBoard, generateBoard, resetCurrentPuzzle, setCell, solveBoard } from '../features/SudokuSlice'
 import './UtilButtons.scss'
 import { clearMoves, popMove, pushMove } from '../features/MoveStackSlice'
 
@@ -36,7 +36,7 @@ let undo = () => {
     let { x, y, value }: any = actionStack[actionStack.length - 1]
     dispatch(popMove())
     if (x == -1 && y == -1) {
-        dispatch(clearBoard())
+        dispatch(resetCurrentPuzzle())
         return
     }
     dispatch(setCell({

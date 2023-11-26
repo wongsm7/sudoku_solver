@@ -7,7 +7,8 @@ import { DIFFICULTY } from '../constants/Difficulty'
 
 export interface SudokuState {
   board: Array<Array<string>>,
-  isFixedBoard: Array<Array<boolean>>
+  isFixedBoard: Array<Array<boolean>>,
+  currentPuzzleBoard: Array<Array<string>>,
   selectedCellRow: number,
   selectedCellCol: number,
   selectedNumber: string,
@@ -31,12 +32,17 @@ export const sudokuSlice = createSlice({
   reducers: {
     clearBoard: (state) => {
       state.board = emptyBoard
+      state.currentPuzzleBoard = emptyBoard
       state.isFixedBoard = unFixedBoard
     },
     generateBoard: (state) => {
       let newBoard = generateSudoku(state.difficulty)
       state.board = newBoard
+      state.currentPuzzleBoard = newBoard
       state.isFixedBoard = generateFixedBoard(newBoard)
+    },
+    resetCurrentPuzzle: (state) => {
+      state.board = state.currentPuzzleBoard
     },
     solveBoard: (state, action: PayloadAction<Array<Array<string>>>) => {
       let tempBoard = JSON.parse(JSON.stringify(action.payload))
@@ -64,6 +70,8 @@ export const sudokuSlice = createSlice({
   },
 })
 
-export const { clearBoard, solveBoard, setCell, setSelectedCellRow, setSelectedCellCol, setSelectedNumber, setDifficulty, generateBoard, setFastPencil } = sudokuSlice.actions
+export const { clearBoard, solveBoard, setCell, setSelectedCellRow,
+  setSelectedCellCol, setSelectedNumber, setDifficulty, generateBoard,
+  setFastPencil, resetCurrentPuzzle } = sudokuSlice.actions
 
 export default sudokuSlice.reducer
