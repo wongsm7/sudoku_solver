@@ -15,10 +15,11 @@ const SudokuBoard = () => {
     let selectedCellCol = useSelector((state: RootState) => state.sudoku.selectedCellCol)
     let fastPencil = useSelector((state: RootState) => state.sudoku.fastPencil)
     let selectedNumber = useSelector((state: RootState) => state.sudoku.selectedNumber)
+    let isErrorBoard = useSelector((state: RootState) => state.sudoku.isErrorBoard)
 
     let handleSwitchChange = () => {
         dispatch(setFastPencil(!fastPencil))
-    }  
+    }
 
     useEffect(() => {
         if (fastPencil && !isFixedBoard[selectedCellRow][selectedCellCol] && selectedNumber != '') {
@@ -101,6 +102,7 @@ const SudokuBoard = () => {
                                                 rowIndex={rowIndex}
                                                 colIndex={colIndex}
                                                 isFixed={isFixedBoard[rowIndex][colIndex]}
+                                                isError={isErrorBoard[rowIndex][colIndex]}
                                             />
                                         )
                                     })

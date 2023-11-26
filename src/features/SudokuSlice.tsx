@@ -1,14 +1,15 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 import type Move from '../models/Move'
-import { emptyBoard, unFixedBoard } from '../data/EmptyBoard'
-import { generateFixedBoard, generateSudoku, solveSudoku } from '../utils/SudokuUtils'
+import { emptyBoard, noErrorBoard, unFixedBoard } from '../data/EmptyBoard'
+import { generateFixedBoard, generateSudoku, isValidSudoku, solveSudoku } from '../utils/SudokuUtils'
 import { DIFFICULTY } from '../constants/Difficulty'
 
 export interface SudokuState {
   board: Array<Array<string>>,
   isFixedBoard: Array<Array<boolean>>,
   currentPuzzleBoard: Array<Array<string>>,
+  isErrorBoard: Array<Array<boolean>>,
   selectedCellRow: number,
   selectedCellCol: number,
   selectedNumber: string,
@@ -20,6 +21,7 @@ const initialState: SudokuState = {
   board: emptyBoard,
   isFixedBoard: unFixedBoard,
   currentPuzzleBoard: emptyBoard,
+  isErrorBoard: noErrorBoard,
   selectedCellRow: -1,
   selectedCellCol: -1,
   selectedNumber: '',
@@ -35,15 +37,18 @@ export const sudokuSlice = createSlice({
       state.board = emptyBoard
       state.currentPuzzleBoard = emptyBoard
       state.isFixedBoard = unFixedBoard
+      state.isErrorBoard = noErrorBoard
     },
     generateBoard: (state) => {
       let newBoard = generateSudoku(state.difficulty)
       state.board = newBoard
       state.currentPuzzleBoard = newBoard
       state.isFixedBoard = generateFixedBoard(newBoard)
+      state.isErrorBoard = noErrorBoard
     },
     resetCurrentPuzzle: (state) => {
       state.board = state.currentPuzzleBoard
+      state.isErrorBoard = noErrorBoard
     },
     solveBoard: (state, action: PayloadAction<Array<Array<string>>>) => {
       let tempBoard = JSON.parse(JSON.stringify(action.payload))
@@ -52,6 +57,7 @@ export const sudokuSlice = createSlice({
     },
     setCell: (state, { payload }: PayloadAction<Move>) => {
       state.board[payload.x][payload.y] = payload.value
+      state.isErrorBoard[payload.x][payload.y] = !isValidSudoku(state.board) ? true : false
     },
     setSelectedCellRow: (state, action: PayloadAction<number>) => {
       state.selectedCellRow = action.payload

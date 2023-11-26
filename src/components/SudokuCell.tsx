@@ -8,11 +8,12 @@ type Props = {
     value: string,
     rowIndex: number,
     colIndex: number,
-    isFixed: boolean
+    isFixed: boolean,
+    isError: boolean
 }
 
 const SudokuCell = (props: Props) => {
-    let { value, rowIndex, colIndex, isFixed } = props
+    let { value, rowIndex, colIndex, isFixed, isError } = props
     let dispatch = useDispatch()
     let selectedNumber = useSelector((state: RootState) => state.sudoku.selectedNumber)
     let selectedCellRow = useSelector((state: RootState) => state.sudoku.selectedCellRow)
@@ -43,7 +44,10 @@ const SudokuCell = (props: Props) => {
             maxLength={1}
             readOnly={true}
             value={value}
-            className={`cell ${(isNumberSelected && 'number-selected')} ${isCellSelected && 'cell-selected'} ${cellBorderClass()} ${isFixed ? 'fixed' : 'unfixed'}`}
+            className={`
+                cell ${(isNumberSelected && 'number-selected')} ${isCellSelected && 'cell-selected'} 
+                ${cellBorderClass()} ${isFixed ? 'fixed' : 'unfixed'} ${isError && 'error'}
+            `}
             onClick={() => onClick()}
             inputMode='none'
         />
