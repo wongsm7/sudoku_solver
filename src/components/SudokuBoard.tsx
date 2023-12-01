@@ -60,7 +60,7 @@ const SudokuBoard = () => {
                     y: selectedCellCol,
                     value: board[selectedCellRow][selectedCellCol]
                 }))
-                
+
                 dispatch(setSelectedNumber(''))
             }
 
@@ -93,27 +93,24 @@ const SudokuBoard = () => {
                 {
                     board.map((row, rowIndex) => {
                         return (
-                            <>
-                                {
-                                    row.map((cell, colIndex) => {
-                                        return (
-                                            <SudokuCell
-                                                value={cell}
-                                                rowIndex={rowIndex}
-                                                colIndex={colIndex}
-                                                isFixed={isFixedBoard[rowIndex][colIndex]}
-                                                isError={isErrorBoard[rowIndex][colIndex]}
-                                            />
-                                        )
-                                    })
-                                }
-                            </>
+                            row.map((cell, colIndex) => {
+                                return (
+                                    <SudokuCell
+                                        value={cell}
+                                        rowIndex={rowIndex}
+                                        colIndex={colIndex}
+                                        isFixed={isFixedBoard[rowIndex][colIndex]}
+                                        isError={isErrorBoard[rowIndex][colIndex]}
+                                        key={`${rowIndex} ${colIndex}`}
+                                    />
+                                )
+                            })
                         )
                     })
                 }
                 <div className='fast-pencil'>
                     <label>⚡️</label>
-                    <Switch 
+                    <Switch
                         checked={fastPencil}
                         onChange={handleSwitchChange}
                     />

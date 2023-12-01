@@ -1,5 +1,5 @@
 import { completedBoard } from "../data/CompletedBoard"
-import { unFixedBoard } from "../data/EmptyBoard"
+import { cleanBoard } from "../data/EmptyBoard"
 import { randomNumber, sample } from "./RandomUtils"
 import { swapColumn, swapRow, swapNumber } from "./SwapUtils"
 
@@ -146,7 +146,7 @@ let generateSudoku = (difficulty: number) => {
 }
 
 let generateFixedBoard = (board: Array<Array<string>>) => {
-    let isFixedBoard = [...unFixedBoard].map(row => [...row])
+    let isFixedBoard = [...cleanBoard].map(row => [...row])
     for (let i = 0; i < 9; i++) {
         for (let j = 0; j < 9; j++) {
           if (board[i][j] != '') {
@@ -157,4 +157,16 @@ let generateFixedBoard = (board: Array<Array<string>>) => {
     return isFixedBoard
 }
 
-export { checkSudoku, isValidSudoku, solveSudoku, generateSudoku, generateFixedBoard }
+let getCountLeftFromBoard = (board: Array<Array<string>>, isErrorBoard: Array<Array<boolean>>, number: string) => {
+    let count = 0
+    for (let i = 0; i < 9; i++) {
+        for (let j = 0; j < 9; j++) {
+          if (board[i][j] == number && !isErrorBoard[i][j]) {
+            count++
+          }
+        }
+    }
+    return 9 - count
+}
+
+export { checkSudoku, isValidSudoku, solveSudoku, generateSudoku, generateFixedBoard, getCountLeftFromBoard }
