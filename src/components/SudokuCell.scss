@@ -3,6 +3,7 @@
     box-sizing: border-box;
     text-align: center;
     caret-color: transparent;
+    background-color: black;
 }
 
 .fixed {
@@ -10,7 +11,7 @@
 }
 
 .unfixed {
-    color: #6db9f7;
+    color: rgb(255, 255, 68);
     font-weight: bold;
 }
 
@@ -19,7 +20,8 @@
 }
 
 .number-selected {
-    background: rgba(220, 224, 228, 0.301);
+    background: #0984e3;
+    opacity: 0.9;
 }
 
 .cell-selected {
